@@ -1,0 +1,29 @@
+.gst-list {
+    display: flex;
+    justify-content: space-between;
+}
+
+.token-list {
+    background-color: white;
+    border-radius: 15px 1px 15px 1px;
+    width: 350px;
+    text-align: center;
+    right: 0;
+    margin-right: 10px;
+    padding: 10px
+}
+
+.per-order {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    align-items: center;
+}
+
+.inde-button {
+    border: 1px solid grey;
+    color: black;
+    box-shadow: 1px 1px 5px black;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+}
