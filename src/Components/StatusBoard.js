@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import { dataContext } from '../App'
 function StatusBoard() {
     const { statusOrderData, setstatusOrderData } = useContext(dataContext)
-    console.log(statusOrderData)
+
     const data2 = [{
         token_no: 1,
         order_status: true,
@@ -56,6 +56,7 @@ function StatusBoard() {
     return (
         <div>
             <div>StatusBoard</div>
+            <button onClick={() => { console.log(statusOrderData) }}>click</button>
             {
                 statusOrderData.map(res => {
                     return (

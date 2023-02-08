@@ -124,7 +124,6 @@ function Kitchen() {
                     })
                 }
             </div>
-            <StatusBoard />
         </div >
 
     )
