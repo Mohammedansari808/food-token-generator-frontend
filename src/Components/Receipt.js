@@ -5,36 +5,39 @@ import { useDispatch } from 'react-redux'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import "../styles/receipt.css"
+import { toast } from 'react-toastify';
 function Receipt() {
     const dispatch = useDispatch()
     const data = useSelector((state) => state.order.orders)
     let arr = []
     let total = 0
     let gst = 0
-    const [Total, setTotal] = useState(0)
-    const [Gst, setGst] = useState(0)
     const [cust_name, setCust_name] = useState("")
-
+    const [confirm, setConfirm] = useState(false)
     const handleChange = (e) => {
+
         setCust_name(e.target.value)
     }
-
     const handleSubmit = () => {
-        setTotal(total)
-        setGst(gst)
 
         const finaldata = {
             dine_name: cust_name,
-            sub_total: Total,
-            gst_total: Gst,
+            token_no: 1,
+            order_status: false,
+            sub_total: total,
+            gst_total: gst,
+            order_status: false,
             orders: [
                 data
             ]
         }
+
+        toast.success("order sent to kitchen successfully")
         console.log(finaldata)
     }
     return (
         <>
+
             <div className='token-list'>
                 <h2>kk Restaurant</h2>
                 <div>chennai</div>
@@ -103,9 +106,22 @@ function Receipt() {
                 <hr />
 
                 <h2>Total : <strong>₹{gst}</strong></h2>
+                {
+                    !confirm ? <Button style={{ margin: "15px" }} sx={{
+                        color: "white", backgroundColor: "rgb(240, 125, 161)", '&:hover': {
+                            backgroundColor: "black", color: "white"
+                        }
+                    }} variant='contained' onClick={() => { setConfirm(true) }}>submit</Button> :
+                        (
+                            <div>
+                                <Button style={{ margin: "15px" }} color="success" variant='contained' onClick={() => { handleSubmit(); setConfirm(false) }}>yes</Button>
+                                <Button style={{ margin: "15px" }} color="error" variant='contained' onClick={() => { setConfirm(false) }}>no</Button>
+                            </div>
+                        )
+                }
             </div>
 
-            <button onClick={() => { handleSubmit() }}>submit</button>
+
         </>
 
     )

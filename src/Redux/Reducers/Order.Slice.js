@@ -22,6 +22,11 @@ export const OrderSlice = createSlice({
         decrement: (state, action) => {
             const item_name = action.payload
             state.orders.map(res => res.name === item_name ? res.quantity = res.quantity - 1 : res)
+        },
+        orderReady: (state, action) => {
+
+            const item = action.payload;
+            state.orders.filter((res) => res.token_no == item.token_no ? res.order_status = true : res)
         }
 
     }

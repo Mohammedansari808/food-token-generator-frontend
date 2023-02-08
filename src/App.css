@@ -1,6 +1,7 @@
   @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap');
 
   .app {
-      background-color: rgb(1, 16, 34);
-      font-family: 'Be Vietnam Pro', sans-serif;
+    background-color: rgb(1, 16, 34);
+    height: 100vh;
+    font-family: 'Be Vietnam Pro', sans-serif;
   }
