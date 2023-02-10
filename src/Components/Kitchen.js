@@ -76,8 +76,9 @@ function Kitchen() {
     }
     return (
         <div >
-            <h2>ORDERS</h2>
-            <div class="all-orders">
+            <div style={{ display: "flex", justifyContent: "center" }}>
+                <h2 style={{ color: "white", margin: "15px" }}>Orders</h2>
+            </div>            <div class="all-orders">
                 {
                     data.map(res => {
                         return (

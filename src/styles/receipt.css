@@ -11,12 +11,17 @@
     position: fixed;
     overflow: scroll;
     text-align: center;
-    right: 0;
-    top: 0;
+    right: 0px;
+    top: 50px;
     margin-top: 20px;
     margin-right: 10px;
     padding: 10px
 }
+
+
+
+
+
 
 ::-webkit-scrollbar {
     width: 10px;

@@ -2,8 +2,13 @@ import React from 'react'
 import { useState } from 'react'
 import { useContext } from 'react'
 import { dataContext } from '../App'
+import { useEffect } from 'react'
+import Button from '@mui/material/Button';
+import "../styles/statusboard.css"
+
+import RefreshIcon from '@mui/icons-material/Refresh';
 function StatusBoard() {
-    const { statusOrderData, setstatusOrderData } = useContext(dataContext)
+
 
     const data2 = [{
         token_no: 1,
@@ -44,37 +49,60 @@ function StatusBoard() {
         ]
     },
     ]
-    const [data, setData] = useState(data2)
+    const [data, setData] = useState([])
+    useEffect(() => {
+        fetch("https://63e471ca4474903105ebab4c.mockapi.io/kitchenorders").
+            then(res => res.json())
+            .then(dat => { setData(dat); console.log(data) })
+    }, [])
+
+    const handleRefresh = () => {
+        fetch("https://63e471ca4474903105ebab4c.mockapi.io/kitchenorders").
+            then(res => res.json())
+            .then(dat => { setData(dat) })
+    }
+
     const handleTokenClear = (orderData) => {
-        console.log(orderData)
         const filterData = data.filter((res) => (
-            res.token_no != orderData.token_no
+            res.token_no != orderData
         ))
+        console.log(orderData)
+        console.log(filterData)
         setData(filterData)
 
     }
     return (
         <div>
-            <div>StatusBoard</div>
-            <button onClick={() => { console.log(statusOrderData) }}>click</button>
-            {
-                statusOrderData.map(res => {
-                    return (
-                        <div>
-                            {
+            <div style={{ display: "flex", justifyContent: "center" }}>
+                <h2 style={{ color: "white", margin: "15px" }}>StatusBoard</h2>
+            </div>
+            <div style={{ marginLeft: "20px" }}>
+                <Button variant='contained' color="success" onClick={() => { handleRefresh() }}>refresh
+                    <RefreshIcon /></Button>
+            </div>
 
-                                res.order_status ? (<div style={{ backgroundColor: "white" }}>
-                                    <div>{res.token_no}</div>
-                                    <button onClick={() => { handleTokenClear(res.token_no) }}>clear</button>
+            <div className='total-token'>
+                {
+                    data ? (data.map(res => {
+                        return (
+                            <>
+                                {
+                                    res.order_status ? (<div className="per-token-no" style={{ backgroundColor: "white", margin: "20px" }}>
+                                        <h1>{res.token_no}</h1>
+                                        <Button style={{ margin: "15px" }} sx={{
+                                            color: "white", backgroundColor: "rgb(240, 125, 161)", '&:hover': {
+                                                backgroundColor: "black", color: "white"
+                                            }
+                                        }} variant='contained' onClick={() => { handleTokenClear(res.token_no) }}>remove</Button>
 
-                                </div>) : null
-                            }
+                                    </div>) : null
+                                }
 
-                        </div>
-                    )
-                })
-            }
-
+                            </>
+                        )
+                    })) : <h3>No Pending tokens</h3>
+                }
+            </div>
         </div>
     )
 }

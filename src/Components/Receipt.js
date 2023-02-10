@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import "../styles/receipt.css"
 import { toast } from 'react-toastify';
-function Receipt() {
+function Receipt({ props }) {
     const dispatch = useDispatch()
     const data = useSelector((state) => state.order.orders)
     let arr = []
@@ -14,6 +14,8 @@ function Receipt() {
     let gst = 0
     const [cust_name, setCust_name] = useState("")
     const [confirm, setConfirm] = useState(false)
+    const date = new Date()
+    const dateTime = date.toLocaleString()
     const handleChange = (e) => {
 
         setCust_name(e.target.value)
@@ -25,8 +27,8 @@ function Receipt() {
             token_no: 1,
             order_status: false,
             sub_total: total,
+            date_Time: date,
             gst_total: gst,
-            order_status: false,
             orders: [
                 data
             ]
@@ -38,12 +40,15 @@ function Receipt() {
     return (
         <>
 
-            <div className='token-list'>
+            <div className="token-list">
                 <h2>kk Restaurant</h2>
                 <div>chennai</div>
                 <h2>Token NO : 01</h2>
+                <div>{dateTime}</div>
+
                 <hr />
                 <div>
+
                     <h3>
                         Dine in
                     </h3>

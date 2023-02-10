@@ -1,0 +1,8 @@
+.whole-chart {
+    background-color: white;
+    border-radius: 10px;
+    width: 1000px;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+}

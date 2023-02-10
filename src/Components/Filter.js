@@ -1,7 +1,6 @@
 import React from 'react'
 import { useContext } from 'react'
 import { dataContext } from '../App'
-import "../styles/filter.css"
 import TextField from '@mui/material/TextField';
 
 function Filter() {
@@ -20,15 +19,14 @@ function Filter() {
   }
 
   return (
-    <div className='filter-field'>
-      <TextField label="Filter"
-        id="outlined-size-small"
-        size="small"
-        sx={{ backgroundColor: "white", border: "1px solid white", borderRadius: "5px", width: "500px" }}
-        type="text" onChange={handleChange} />
+
+    <TextField label="Filter"
+      id="outlined-size-small"
+      size="small"
+      sx={{ backgroundColor: "white", border: "1px solid white", borderRadius: "5px", width: "500px" }}
+      type="text" onChange={handleChange} />
 
 
-    </div>
   )
 }
 

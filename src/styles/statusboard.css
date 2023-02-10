@@ -1,0 +1,14 @@
+.per-token-no {
+    margin: 20px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px darkgrey;
+}
+
+.total-token {
+    display: flex;
+}
