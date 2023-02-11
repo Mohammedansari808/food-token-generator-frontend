@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import "../styles/receipt.css"
 import { toast } from 'react-toastify';
+import { fullLink } from './link';
 function Receipt({ props }) {
     const dispatch = useDispatch()
     const data = useSelector((state) => state.order.orders)
@@ -14,28 +15,54 @@ function Receipt({ props }) {
     let gst = 0
     const [cust_name, setCust_name] = useState("")
     const [confirm, setConfirm] = useState(false)
-    const date = new Date()
-    const dateTime = date.toLocaleString()
+    const dateTime = new Date()
+
+    const date = dateTime.toLocaleDateString()
     const handleChange = (e) => {
 
         setCust_name(e.target.value)
     }
-    const handleSubmit = () => {
+
+    const handleSubmit = async () => {
+
+
+        const token_no = await fetch(`${fullLink}/kkorders/orders`)
+        const token = await token_no.json()
+
+        const tokenValue = token.getOrders.length
+
 
         const finaldata = {
             dine_name: cust_name,
-            token_no: 1,
+            token_no: tokenValue,
             order_status: false,
+            kitchen_order: false,
             sub_total: total,
-            date_Time: date,
             gst_total: gst,
+            only_date: date,
+            date: dateTime,
             orders: [
                 data
             ]
         }
 
-        toast.success("order sent to kitchen successfully")
-        console.log(finaldata)
+
+        const postOrders = await fetch(`${fullLink}/kkorders/orders`, {
+            method: "POST",
+            body: JSON.stringify(finaldata),
+            headers: {
+                "Content-type": "application/json"
+            }
+        })
+
+        const result = await postOrders.json()
+        console.log(result)
+        if (result.message === "success") {
+            toast.success("order sent to kitchen successfully")
+        } else {
+            toast.success("order not sent to kitchen please try again")
+        }
+
     }
     return (
         <>
@@ -44,7 +71,7 @@ function Receipt({ props }) {
                 <h2>kk Restaurant</h2>
                 <div>chennai</div>
                 <h2>Token NO : 01</h2>
-                <div>{dateTime}</div>
+                <div>{date}</div>
 
                 <hr />
                 <div>

@@ -7,8 +7,10 @@ import Button from '@mui/material/Button';
 import "../styles/statusboard.css"
 
 import RefreshIcon from '@mui/icons-material/Refresh';
+import { fullLink } from './link'
+import { toast } from 'react-toastify'
 function StatusBoard() {
-
+    const [data, setData] = useState([])
 
     const data2 = [{
         token_no: 1,
@@ -49,26 +51,45 @@ function StatusBoard() {
         ]
     },
     ]
-    const [data, setData] = useState([])
+
+
     useEffect(() => {
-        fetch("https://63e471ca4474903105ebab4c.mockapi.io/kitchenorders").
-            then(res => res.json())
-            .then(dat => { setData(dat); console.log(data) })
+
+        const fetchOrders = fetch(`${fullLink}/kkorders/orders`)
+            .then(data => data.json())
+            .then(result => { setData(result.getOrders) })
+
+        console.log(data)
+
     }, [])
 
     const handleRefresh = () => {
-        fetch("https://63e471ca4474903105ebab4c.mockapi.io/kitchenorders").
-            then(res => res.json())
-            .then(dat => { setData(dat) })
+        fetch(`${fullLink}/kkorders/orders`)
+            .then(data => data.json())
+            .then(result => { setData(result.getOrders) })
     }
 
-    const handleTokenClear = (orderData) => {
+    const handleTokenClear = async (token) => {
+
         const filterData = data.filter((res) => (
-            res.token_no != orderData
+            res.token_no != token
         ))
-        console.log(orderData)
-        console.log(filterData)
-        setData(filterData)
+        const datas = await fetch(`${fullLink}/kkorders/orders`, {
+            method: 'PUT',
+            body: JSON.stringify({ token }),
+            headers: {
+                "Content-type": "application/json"
+            },
+        })
+        const result = await datas.json()
+
+        if (result.message === "success") {
+            setData(filterData)
+            toast.success("token removed")
+        } else {
+            toast.error("token not removed please refresh");
+
+        }
 
     }
     return (
@@ -87,7 +108,7 @@ function StatusBoard() {
                         return (
                             <>
                                 {
-                                    res.order_status ? (<div className="per-token-no" style={{ backgroundColor: "white", margin: "20px" }}>
+                                    !res.order_status && res.kitchen_orders ? (<div className="per-token-no" style={{ backgroundColor: "white", margin: "20px" }}>
                                         <h1>{res.token_no}</h1>
                                         <Button style={{ margin: "15px" }} sx={{
                                             color: "white", backgroundColor: "rgb(240, 125, 161)", '&:hover': {

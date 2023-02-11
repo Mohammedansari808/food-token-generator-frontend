@@ -1,78 +1,50 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import "../styles/kitchen.css"
 import Button from '@mui/material/Button';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { dataContext } from '../App';
 import StatusBoard from './StatusBoard';
+import { fullLink } from './link';
 function Kitchen() {
     const { statusOrderData, setstatusOrderData } = useContext(dataContext)
+    const [data, setData] = useState([])
 
-    const data1 = [{
-        token_no: 1,
-        order_status: false,
-        orders: [
-            {
-                image: "http",
-                name: "shwarma",
-                quantity: 1,
-                rate: 130
-            },
-            {
-                image: "http",
-                name: "pizza",
-                quantity: 1,
-                rate: 150
-            }
-        ]
-    },
-    {
-        token_no: 2,
-        order_status: false,
-        orders: [
-            {
-                image: "http",
-                name: "chicken",
-                quantity: 1,
-                rate: 130
-            },
-            {
-                image: "http",
-                name: "rooll",
-                quantity: 1,
-                rate: 150
-            }
-        ]
-    },
-    {
-        token_no: 3,
-        order_status: false,
-        orders: [
-            {
-                image: "http",
-                name: "chicken",
-                quantity: 1,
-                rate: 130
-            },
-            {
-                image: "http",
-                name: "rooll",
-                quantity: 1,
-                rate: 150
-            }
-        ]
-    },
-    ]
-    const [data, setData] = useState(data1)
+    useEffect(() => {
+        fetch(`${fullLink}/kkorders/orders`)
+            .then(orders => orders.json())
+            .then(result => { (setData(result.getOrders)); console.log(result.getOrders) })
+
+    }, [])
+
+
+
+
     let arr = []
-    const handleOrderReady = (orderData) => {
-        console.log(orderData)
+    const handleOrderReady = async (token) => {
         const filterData = data.filter((res) => (
-            res.token_no != orderData.token_no
+            res.token_no != token
         ))
-        setData(filterData)
-        arr.push()
-        setstatusOrderData([...statusOrderData, { orderData }])
+        const datas = await fetch(`${fullLink}/kkorders/kitchenorders`, {
+            method: 'PUT',
+            body: JSON.stringify({ token }),
+            headers: {
+                "Content-type": "application/json"
+            },
+        })
+        const result = await datas.json()
+
+
+
+        if (result.message === "success") {
+            toast.success("order ready token sent to Token board")
+            setData(filterData)
+        } else {
+            toast.success("order not sentplease try again")
+        }
+
+
     }
     return (
         <div >
@@ -83,7 +55,7 @@ function Kitchen() {
                     data.map(res => {
                         return (
                             <>
-                                {!res.order_status ? (<div className='per-kitchen-order' >
+                                {!res.kitchen_orders && !res.order_status ? (<div className='per-kitchen-order' >
                                     <h2>TOKEN_NO  {res.token_no}</h2>
                                     <div className='table-box'>
                                         <table>
@@ -92,12 +64,12 @@ function Kitchen() {
                                                 <th>Quantity</th>
                                             </tr>
                                             {
-                                                res.orders.map((orders => {
+                                                res.orders[0].map((resu => {
                                                     return (
                                                         <>
                                                             <tr>
-                                                                <td>{orders.name}</td>
-                                                                <td>{orders.quantity}</td>
+                                                                <td>{resu.name}</td>
+                                                                <td>{resu.quantity}</td>
                                                             </tr>
                                                         </>
                                                     )
@@ -111,7 +83,7 @@ function Kitchen() {
                                                 color: "white", backgroundColor: "rgb(240, 125, 161)", '&:hover': {
                                                     backgroundColor: "black", color: "white"
                                                 }
-                                            }} variant='contained' onClick={() => { handleOrderReady(res) }}>ready</Button>
+                                            }} variant='contained' onClick={() => { handleOrderReady(res.token_no) }}>ready</Button>
 
                                         }
 

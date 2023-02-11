@@ -140,7 +140,7 @@ function App() {
               {role_id === 6298 ? <Link className="nav-link active" to="/addproduct">AddProduct</Link> : null}
               <Link className="nav-link active" to="/products">Products</Link>
               <Link className="nav-link active" to="/kitchen">Kitchen</Link>
-              {role_id === 6298 ? <Link className="nav-link active" to="/charts">Charts</Link> : null}
+              {role_id === "6298" ? <Link className="nav-link active" to="/charts">Charts</Link> : null}
 
             </div>
           </div>
@@ -169,10 +169,10 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/verify_link/:username/:id" element={<VerifyComplete />} />
 
-            <Route path="/products" element={<dataContext.Provider value={{ data, setData, data2 }}><Product /></dataContext.Provider>} />
-            <Route path="kitchen" element={<dataContext.Provider value={{ statusOrderData, setstatusOrderData }}><Kitchen /></dataContext.Provider>} />
-            <Route path="statusboard" element={<dataContext.Provider value={{ statusOrderData, setstatusOrderData }}><StatusBoard /></dataContext.Provider>} />
-            <Route path="charts" element={<dataContext.Provider value={{ statusOrderData, setstatusOrderData }}><Chart /></dataContext.Provider>} />
+            <Route path="products" element={<Product />} />
+            <Route path="kitchen" element={<Kitchen />} />
+            <Route path="statusboard" element={<StatusBoard />} />
+            <Route path="charts" element={<Chart />} />
             <Route path="edit/:id" element={<EditProduct />} />
             <Route path="addproduct" element={<AddProduct />} />
 
