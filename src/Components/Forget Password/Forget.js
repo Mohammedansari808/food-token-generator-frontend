@@ -40,7 +40,7 @@ function Forget() {
                 })
             } else {
                 setLoad(false)
-                toast.error("Please give correct email and username", {
+                toast.error("Please give correct email and username or check your email", {
                     position: toast.POSITION.TOP_LEFT,
 
                 })
@@ -58,8 +58,8 @@ function Forget() {
             <div style={{ display: "flex", justifyContent: "center" }}>
                 <h2 style={{ color: "white", margin: "15px" }}>Verification Link</h2>
             </div>
-            <div className='form-box'>
-                <form className='edit-form'>
+            <div className='form-box' onSubmit={formik.handleSubmit}>
+                <form className='edit-form' onSubmit={formik.handleSubmit}>
                     <TextField style={{ marginRight: "15px" }} id="standard-basic"
                         name="username" label="Enter username" onChange={formik.handleChange} value={formik.values.username}
                         variant="standard" /><br />

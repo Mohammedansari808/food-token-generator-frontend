@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const valiBook = Yup.object({
+    fullname: Yup.string().min(3, "Please type username").required("Please fill the fullname"),
     username: Yup.string().min(5, "Please type username").required("Please fill the username"),
     password: Yup.string().min(6, "Please type the password").required("Please fill the password"),
     email: Yup.string().min(7, "please enter valid email").required("Please fill the email")
@@ -21,12 +22,14 @@ function Signup() {
 
     const formik = useFormik({
         initialValues: {
+            fullname: "",
             username: "",
             password: "",
             email: ""
         }, validationSchema: valiBook, onSubmit: async (values) => {
             setLoad(true)
             const signInfo = {
+                fullname: values.fullname,
                 username: values.username,
                 password: values.password,
                 email: values.email
@@ -55,7 +58,14 @@ function Signup() {
             <div className="form-box">
 
 
-                <form className='edit-form'>
+                <form className='edit-form' onSubmit={formik.handleSubmit}>
+                    <TextField onBlur={formik.handleBlur} style={{ margin: "15px", width: "300px" }} id="standard-basic"
+                        name="fullname" label="Full Name" onChange={formik.handleChange}
+                        value={formik.values.fullname} variant="standard" />
+                    <div className="formik-errors">
+                        {formik.touched.fullname && formik.errors.fullname ? formik.errors.fullname : null}
+
+                    </div>
                     <TextField onBlur={formik.handleBlur} style={{ margin: "15px", width: "300px" }} id="standard-basic"
                         name="username" label="Username" onChange={formik.handleChange}
                         value={formik.values.username} variant="standard" />

@@ -1,14 +1,17 @@
 .per-kitchen-order {
     background-color: rgb(252, 249, 249);
     margin: 40px;
-    padding: 20px;
+    padding: 10px;
     border-radius: 7px;
-    width: 500px
+    min-width: 300px;
+    min-height: 300px;
+
 }
 
 .all-orders {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+
 }
 
 table {

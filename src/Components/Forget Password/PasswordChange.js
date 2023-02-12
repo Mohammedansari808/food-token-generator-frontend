@@ -43,6 +43,7 @@ function PasswordChange() {
                 })
                 navigate("/")
             } else {
+                toast.error("password change unsuccessful")
                 setLoad(false)
             }
 

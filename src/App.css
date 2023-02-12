@@ -1,9 +1,16 @@
   @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap');
 
   .app {
-    background-color: rgb(1, 16, 34);
-    height: 100vh;
+
     font-family: 'Be Vietnam Pro', sans-serif;
+  }
+
+  html,
+  body {
+    background-color: rgb(1, 16, 34);
+    height: 100%;
+    width: 100%;
+    background-attachment: fixed;
   }
 
   .navibar {

@@ -31,15 +31,13 @@ function Login() {
                 headers: { "Content-type": "application/json" }
             })
             let result = await data.json()
-            let dataforPayment = {}
             if (result.message == "successful login") {
                 toast.success("login success")
                 localStorage.setItem("token", result.token)
                 localStorage.setItem('role_id', result.role_id)
                 localStorage.setItem("username", loginInfo.username)
                 localStorage.setItem("email", result.email)
-
-                navigate("/theaters")
+                navigate("/products")
             } else {
                 toast.error("username or password is incorrect please try again ")
                 setLoad(false)
@@ -58,7 +56,7 @@ function Login() {
             <div className='form-box'>
 
                 <div>
-                    <form className='edit-form'>
+                    <form className='edit-form' onSubmit={formik.handleSubmit}>
                         <TextField onBlur={formik.handleBlur} style={{ margin: "15px", width: "300px" }} id="standard-basic"
                             name="username" label="Username" onChange={formik.handleChange}
                             value={formik.values.username} variant="standard" />

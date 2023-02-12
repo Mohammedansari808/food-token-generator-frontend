@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { increment, decrement, removeOrder } from '../Redux/Reducers/Order.Slice'
 import { useDispatch } from 'react-redux'
@@ -14,6 +14,7 @@ function Receipt({ props }) {
     let total = 0
     let gst = 0
     const [cust_name, setCust_name] = useState("")
+    const [token, setToken] = useState(0)
     const [confirm, setConfirm] = useState(false)
     const dateTime = new Date()
 
@@ -22,19 +23,16 @@ function Receipt({ props }) {
 
         setCust_name(e.target.value)
     }
+    useEffect(() => {
+        fetch(`${fullLink}/kkorders/orders`)
+            .then(res => res.json())
+            .then(orders => setToken(orders.getOrders.length))
+    }, [])
 
     const handleSubmit = async () => {
-
-
-        const token_no = await fetch(`${fullLink}/kkorders/orders`)
-        const token = await token_no.json()
-
-        const tokenValue = token.getOrders.length
-
-
         const finaldata = {
             dine_name: cust_name,
-            token_no: tokenValue,
+            token_no: token,
             order_status: false,
             kitchen_order: false,
             sub_total: total,
@@ -45,8 +43,6 @@ function Receipt({ props }) {
                 data
             ]
         }
-
-
         const postOrders = await fetch(`${fullLink}/kkorders/orders`, {
             method: "POST",
             body: JSON.stringify(finaldata),
@@ -59,20 +55,20 @@ function Receipt({ props }) {
         console.log(result)
         if (result.message === "success") {
             toast.success("order sent to kitchen successfully")
+            setToken(token + 1)
         } else {
             toast.success("order not sent to kitchen please try again")
         }
 
     }
     return (
-        <>
+        <div>
 
             <div className="token-list">
                 <h2>kk Restaurant</h2>
                 <div>chennai</div>
-                <h2>Token NO : 01</h2>
+                <h2>Token NO : {token}</h2>
                 <div>{date}</div>
-
                 <hr />
                 <div>
 
@@ -154,7 +150,7 @@ function Receipt({ props }) {
             </div>
 
 
-        </>
+        </div>
 
     )
 }

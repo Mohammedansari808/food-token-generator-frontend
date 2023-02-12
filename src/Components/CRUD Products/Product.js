@@ -10,15 +10,37 @@ import Receipt from '../Receipt'
 import StatusBoard from '../StatusBoard'
 import { useNavigate } from 'react-router-dom'
 import Filter from '../Filter'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import { useEffect } from 'react'
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-function Product() {
-    const role_id = localStorage.getItem("role_id")
-    const navigate = useNavigate()
-    const { data, setData, data2 } = useContext(dataContext)
+import { useReactToPrint } from 'react-to-print';
 
+function Product() {
+    const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    });
+
+
+    const role_id = localStorage.getItem("role_id")
+    const token = localStorage.getItem("token")
+
+    const navigate = useNavigate()
+    const { data, setData } = useContext(dataContext)
     const [showBill, setShowBill] = useState(true)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        fetch("http://localhost:4000/kkproducts/products", {
+            headers: {
+                "x-auth-token": token
+            }
+        })
+            .then(res => res.json())
+            .then(data => { setData(data.products); console.log(data.products) })
+    }, [])
+
+
     const handleDelete = (name) => {
         const deleteData = data.filter((res) => (res.name != name))
         setData(deleteData)
@@ -65,6 +87,7 @@ function Product() {
                                     <div className="card-body">
                                         <h5 className="card-title">{data.name}</h5>
                                         <p className="card-text">Rate : {data.rate}/-</p>
+                                        <p className="card-text">Pieces :{data.pieces}</p>
                                         <Button
                                             sx={{
                                                 color: "white", marginRight: "5px", backgroundColor: "rgb(240, 112, 152)", '&:hover': {
@@ -78,7 +101,7 @@ function Product() {
                                         >
                                             Add
                                         </Button>
-                                        {role_id === 6298 ? (
+                                        {role_id == 6298 ? (
                                             <><Button
                                                 sx={{
                                                     color: "white", marginRight: "10px", '&:hover': {
@@ -116,11 +139,13 @@ function Product() {
 
                     }
                 </div>
+
                 <div>
 
                     {
                         showBill ? (<div>
-                            <Receipt />
+                            <Receipt ref={componentRef} />
+
                         </div>) : null
                     }
                 </div>
@@ -128,6 +153,7 @@ function Product() {
 
 
             </div>
+            <button onClick={handlePrint}>Print this out!</button>
         </>
 
 

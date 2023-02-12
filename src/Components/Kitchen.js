@@ -50,13 +50,14 @@ function Kitchen() {
         <div >
             <div style={{ display: "flex", justifyContent: "center" }}>
                 <h2 style={{ color: "white", margin: "15px" }}>Orders</h2>
-            </div>            <div class="all-orders">
+            </div>
+            <div className="all-orders">
                 {
                     data.map(res => {
                         return (
-                            <>
+                            <div>
                                 {!res.kitchen_orders && !res.order_status ? (<div className='per-kitchen-order' >
-                                    <h2>TOKEN_NO  {res.token_no}</h2>
+                                    <h2>TOKEN NO <strong>{res.token_no}</strong> </h2>
                                     <div className='table-box'>
                                         <table>
                                             <tr>
@@ -89,7 +90,7 @@ function Kitchen() {
 
                                     </div>
                                 </div>) : null}
-                            </>
+                            </div>
 
 
                         )

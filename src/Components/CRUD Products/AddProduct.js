@@ -17,9 +17,8 @@ const bookVali = Yup.object({
 })
 function AddProduct() {
     const role_id = localStorage.getItem("role_id")
-
+    const token = localStorage.getItem("token")
     const [load, setLoad] = useState(false)
-
     const navigate = useNavigate()
 
     const formik = useFormik({
@@ -41,6 +40,7 @@ function AddProduct() {
                 method: "POST",
                 body: JSON.stringify(productInfo),
                 headers: {
+                    "x-auth-token": token,
                     "Content-type": "application/json"
                 }
             })

@@ -17,9 +17,13 @@ function Logout() {
     }
     return (
 
-        <div style={{ backgroundColor: "lightgrey", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <h4 style={{ marginLeft: "10px", }} >Bookmyshow</h4>
-            <Button style={{ margin: "10px", }} onClick={() => logout()} color="success" variant="contained">{load ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}logout</Button>
+        <div >
+            <Button style={{ margin: "10px", }}
+                sx={{
+                    color: "white", marginRight: "5px", backgroundColor: "rgb(240, 112, 152)", '&:hover': {
+                        backgroundColor: "black", color: "whitesmoke"
+                    }
+                }} onClick={() => logout()} color="success" variant="contained">{load ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}logout</Button>
         </div>
 
     )

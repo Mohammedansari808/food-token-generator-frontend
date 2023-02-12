@@ -10,6 +10,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import { fullLink } from './link'
 import { toast } from 'react-toastify'
 function StatusBoard() {
+    const role_id = localStorage.getItem('role_id')
     const [data, setData] = useState([])
 
     const data2 = [{
@@ -110,11 +111,13 @@ function StatusBoard() {
                                 {
                                     !res.order_status && res.kitchen_orders ? (<div className="per-token-no" style={{ backgroundColor: "white", margin: "20px" }}>
                                         <h1>{res.token_no}</h1>
-                                        <Button style={{ margin: "15px" }} sx={{
-                                            color: "white", backgroundColor: "rgb(240, 125, 161)", '&:hover': {
-                                                backgroundColor: "black", color: "white"
-                                            }
-                                        }} variant='contained' onClick={() => { handleTokenClear(res.token_no) }}>remove</Button>
+                                        {
+                                            role_id == 6298 ? (<Button style={{ margin: "15px" }} sx={{
+                                                color: "white", backgroundColor: "rgb(240, 125, 161)", '&:hover': {
+                                                    backgroundColor: "black", color: "white"
+                                                }
+                                            }} variant='contained' onClick={() => { handleTokenClear(res.token_no) }}>remove</Button>) : null
+                                        }
 
                                     </div>) : null
                                 }

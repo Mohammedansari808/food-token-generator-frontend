@@ -64,17 +64,30 @@ export function Chart() {
 
     };
 
-    const daily = rateData.map((res) => {
+
+    const dailyEarnDateSort = rateData.sort((a, b) => {
+        return (
+            new Date(a.date) - new Date(b.date)
+        )
+    });
+
+    const daily = dailyEarnDateSort.map((res) => {
+        console.log(res.date)
         let date = new Date(res.date).toLocaleDateString()
         return (date.toString())
     });
-
-    const monthly = monthlyData.map((res) => {
+    const monthlyEarnSort = monthlyData.sort((a, b) => {
+        return (
+            new Date(a.date) - new Date(b.date)
+        )
+    });
+    const monthly = monthlyEarnSort.map((res) => {
         let month = new Date(res.month).toLocaleString("default", { month: "short" })
         return (month)
     });
 
     const daily_earns = rateData.map((res) => {
+        console.log(res)
         return (res.total)
     })
 
@@ -109,7 +122,7 @@ export function Chart() {
     return (
         <div >
 
-            {role_id === "6298" ? (
+            {role_id == 6298 ? (
                 <>
                     <div style={{ textAlign: "center" }}>
                         <Button style={{ margin: "15px" }} sx={{
