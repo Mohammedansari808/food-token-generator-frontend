@@ -3,18 +3,20 @@ import "../styles/kitchen.css"
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
 import { dataContext } from '../App';
-import StatusBoard from './StatusBoard';
 import { fullLink } from './link';
 function Kitchen() {
-    const { statusOrderData, setstatusOrderData } = useContext(dataContext)
+    const authToken = localStorage.getItem("token")
     const [data, setData] = useState([])
-
     useEffect(() => {
-        fetch(`${fullLink}/kkorders/orders`)
+        fetch(`${fullLink}/kkorders/orders`, {
+            headers: {
+                "x-auth-token": authToken
+            }
+
+        })
             .then(orders => orders.json())
-            .then(result => { (setData(result.getOrders)); console.log(result.getOrders) })
+            .then(result => { (setData(result.getOrders)) })
 
     }, [])
 
@@ -23,6 +25,7 @@ function Kitchen() {
 
     let arr = []
     const handleOrderReady = async (token) => {
+
         const filterData = data.filter((res) => (
             res.token_no != token
         ))
@@ -30,7 +33,9 @@ function Kitchen() {
             method: 'PUT',
             body: JSON.stringify({ token }),
             headers: {
+                "x-auth-token": authToken,
                 "Content-type": "application/json"
+
             },
         })
         const result = await datas.json()
@@ -59,7 +64,7 @@ function Kitchen() {
                                 {!res.kitchen_orders && !res.order_status ? (<div className='per-kitchen-order' >
                                     <h2>TOKEN NO <strong>{res.token_no}</strong> </h2>
                                     <div className='table-box'>
-                                        <table>
+                                        <table >
                                             <tr>
                                                 <th>Food</th>
                                                 <th>Quantity</th>

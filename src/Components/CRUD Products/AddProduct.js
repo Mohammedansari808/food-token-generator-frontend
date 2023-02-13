@@ -44,7 +44,7 @@ function AddProduct() {
                     "Content-type": "application/json"
                 }
             })
-            const result = kkProducts.json()
+            const result = await kkProducts.json()
             if (result.message === "success") {
                 toast.success("Product Added")
                 setTimeout(() => {
@@ -54,7 +54,6 @@ function AddProduct() {
                 toast.error("Please try again")
             }
 
-            console.log(productInfo)
 
         }
     })

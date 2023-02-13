@@ -1,0 +1,13 @@
+.table-box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.inner-table {
+
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px black;
+    margin: 30px
+}

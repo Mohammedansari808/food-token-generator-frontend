@@ -1,20 +1,34 @@
 import React from 'react'
 import { useContext } from 'react'
-import { dataContext } from '../App'
+import { dataContext } from '../../App'
 import TextField from '@mui/material/TextField';
 
 function Filter() {
-  const { data, setData, data2 } = useContext(dataContext)
+  const { data, setData } = useContext(dataContext)
+  const token = localStorage.getItem("token")
+  const filterRefresh = () => {
+    fetch("http://localhost:4000/kkproducts/products", {
+      headers: {
+        "x-auth-token": token
+      }
+    })
+      .then(res => res.json())
+      .then(data => { setData(data.products) })
+  }
   const handleChange = (e) => {
     const value = e.target.value
     const valueSplit = value.split("")
+
     if (valueSplit.length) {
-      let filterData = data.filter(res => res.name.includes(value)).map(filteredName => {
+      let filterData = data.filter(res => {
+        return (res.name.toLowerCase().includes(value))
+      }).map(filteredName => {
         return filteredName
       })
       setData(filterData)
+
     } else {
-      setData(data2)
+      filterRefresh()
     }
   }
 

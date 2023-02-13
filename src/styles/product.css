@@ -20,7 +20,7 @@
 
 .filter-token-board {
     display: flex;
-    width: 70%;
+    width: 100%;
     flex-direction: column;
     align-items: center;
     padding: 20px;

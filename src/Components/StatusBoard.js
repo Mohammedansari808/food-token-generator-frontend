@@ -1,7 +1,5 @@
 import React from 'react'
 import { useState } from 'react'
-import { useContext } from 'react'
-import { dataContext } from '../App'
 import { useEffect } from 'react'
 import Button from '@mui/material/Button';
 import "../styles/statusboard.css"
@@ -11,49 +9,8 @@ import { fullLink } from './link'
 import { toast } from 'react-toastify'
 function StatusBoard() {
     const role_id = localStorage.getItem('role_id')
+    const authToken = localStorage.getItem("token")
     const [data, setData] = useState([])
-
-    const data2 = [{
-        token_no: 1,
-        order_status: true,
-        token_clear: false,
-        orders: [
-            {
-                image: "http",
-                name: "shwarma",
-                quantity: 1,
-                rate: 130
-            },
-            {
-                image: "http",
-                name: "pizza",
-                quantity: 1,
-                rate: 150
-            }
-        ]
-    },
-    {
-        token_no: 2,
-        order_status: true,
-        token_clear: false,
-        orders: [
-            {
-                image: "http",
-                name: "chicken",
-                quantity: 1,
-                rate: 130
-            },
-            {
-                image: "http",
-                name: "rooll",
-                quantity: 1,
-                rate: 150
-            }
-        ]
-    },
-    ]
-
-
     useEffect(() => {
 
         const fetchOrders = fetch(`${fullLink}/kkorders/orders`)
@@ -79,6 +36,7 @@ function StatusBoard() {
             method: 'PUT',
             body: JSON.stringify({ token }),
             headers: {
+                "x-auth-token": authToken,
                 "Content-type": "application/json"
             },
         })

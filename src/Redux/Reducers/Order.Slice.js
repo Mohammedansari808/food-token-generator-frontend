@@ -26,12 +26,15 @@ export const OrderSlice = createSlice({
         orderReady: (state, action) => {
             const item = action.payload;
             state.orders.filter((res) => res.token_no == item.token_no ? res.order_status = true : res)
+        },
+        clearOrders: (state, action) => {
+            state.orders = []
         }
 
 
     }
 })
 
-export const { addOrder, removeOrder, increment, decrement } = OrderSlice.actions
+export const { addOrder, removeOrder, increment, decrement, clearOrders } = OrderSlice.actions
 
 export default OrderSlice.reducer

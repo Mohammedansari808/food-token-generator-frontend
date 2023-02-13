@@ -37,18 +37,20 @@ ChartJS.register(
 
 export function Chart() {
     const [show, setShow] = useState(true)
-    const [dateData, setDateData] = useState([]);
     const [rateData, setRateData] = useState([]);
     const [monthlyData, setMonthlyData] = useState([])
     const role_id = localStorage.getItem("role_id")
-
+    const token = localStorage.getItem('token')
 
     useEffect(() => {
-        fetch(`${fullLink}/kkorders/orders`)
+        fetch(`${fullLink}/kkorders/orders`, {
+            headers: {
+                "x-auth-token": token
+            }
+        })
             .then(orders => orders.json())
             .then(result => { setRateData(result.getDailyChart); setMonthlyData(result.getMonthlyChart) })
     }, [])
-
 
     const options = {
         responsive: true,
@@ -58,10 +60,6 @@ export function Chart() {
             },
 
         },
-
-
-
-
     };
 
 
@@ -72,7 +70,6 @@ export function Chart() {
     });
 
     const daily = dailyEarnDateSort.map((res) => {
-        console.log(res.date)
         let date = new Date(res.date).toLocaleDateString()
         return (date.toString())
     });
@@ -87,7 +84,6 @@ export function Chart() {
     });
 
     const daily_earns = rateData.map((res) => {
-        console.log(res)
         return (res.total)
     })
 
@@ -96,19 +92,14 @@ export function Chart() {
         return (res.total)
     })
 
-    const labels = (!show ? daily : monthly)
-
-
-
-
-
+    const labels = (show ? daily : monthly)
 
     const data = {
         labels,
         datasets: [
             {
-                label: !show ? 'DAILY EARNINGS' : "MONTHLY EARNINGS",
-                data: !show ? daily_earns : monthly_earns,
+                label: show ? 'DAILY EARNINGS' : "MONTHLY EARNINGS",
+                data: show ? daily_earns : monthly_earns,
                 borderColor: "rgb(240, 125, 161)",
                 backgroundColor: 'rgb(240, 125, 161,0.5)',
                 tension: 0.15,
@@ -129,7 +120,7 @@ export function Chart() {
                             color: "white", backgroundColor: "rgb(240, 125, 161)", '&:hover': {
                                 backgroundColor: "black", color: "white"
                             }
-                        }} variant='contained' onClick={() => { setShow(!show) }}>{!show ? "CLICK FOR MONTHLY" : "CLICK FOR DAILY"}</Button>
+                        }} variant='contained' onClick={() => { setShow(!show) }}>{show ? "CLICK FOR MONTHLY" : "CLICK FOR DAILY"}</Button>
 
                     </div>
                     <div style={{ display: "flex", justifyContent: "center" }}>

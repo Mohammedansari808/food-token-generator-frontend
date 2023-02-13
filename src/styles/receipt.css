@@ -7,9 +7,8 @@
     background-color: white;
     border-radius: 15px 1px 15px 1px;
     width: 350px;
-    height: 600px;
-    position: fixed;
-    overflow: scroll;
+    min-height: 600px;
+
     text-align: center;
     right: 0px;
     top: 50px;
@@ -18,6 +17,21 @@
     padding: 10px
 }
 
+@media print {
+    #printable {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 70vw;
+        margin-right: 500px;
+    }
+
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+    }
+}
 
 
 
