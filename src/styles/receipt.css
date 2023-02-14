@@ -18,6 +18,14 @@
 }
 
 @media print {
+    .per-order {
+        text-align: center;
+    }
+
+    #list-tab {
+        margin-left: 120px;
+    }
+
     #printable {
         display: flex;
         flex-direction: column;

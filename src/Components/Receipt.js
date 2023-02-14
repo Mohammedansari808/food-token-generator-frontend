@@ -128,7 +128,7 @@ function Receipt() {
                                 gst = total + (total * (5 / 100))
 
                                 return (
-                                    <div>
+                                    <div id="list-tab">
                                         <div className='per-order' >
                                             <div style={{ display: "flex", justifyContent: "space-between", width: "100px", fontSize: "14px" }}>
 
