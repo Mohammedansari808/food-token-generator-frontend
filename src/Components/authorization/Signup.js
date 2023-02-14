@@ -17,8 +17,6 @@ const valiBook = Yup.object({
 
 function Signup() {
     const [load, setLoad] = useState(false)
-    const [Sload, setSLoad] = useState(false)
-    const navigate = useNavigate()
 
     const formik = useFormik({
         initialValues: {
@@ -92,7 +90,7 @@ function Signup() {
                             color: "white", marginRight: "5px", backgroundColor: "rgb(240, 112, 152)", '&:hover': {
                                 backgroundColor: "black", color: "whitesmoke"
                             }
-                        }} type="submit" color="primary" variant="contained">{load ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}signup</Button>
+                        }} type="submit" color="primary" variant="contained">{load ? <i style={{ marginRight: "5px", marginLeft: "0" }} className="fa fa-circle-o-notch fa-spin"></i> : null}signup</Button>
                     </div>
 
                 </form>

@@ -62,6 +62,7 @@ function Receipt() {
                 method: "POST",
                 body: JSON.stringify(finaldata),
                 headers: {
+                    "x-auth-token": authToken,
                     "Content-type": "application/json"
                 }
             })

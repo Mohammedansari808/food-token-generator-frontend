@@ -75,7 +75,7 @@ function Login() {
                                 backgroundColor: "black", color: "whitesmoke"
                             }
                         }}
-                            type="submit" variant="contained">{load ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}login</Button>
+                            type="submit" variant="contained">{load ? <i style={{ marginRight: "5px", marginLeft: "0" }} className="fa fa-circle-o-notch fa-spin"></i> : null}login</Button>
 
                     </form>
                     <Button style={{ marginTop: "8px" }} sx={{ color: "white" }} onClick={() => navigate("/forgetpassword")}  >Forget Password</Button>
