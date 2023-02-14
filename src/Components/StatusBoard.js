@@ -72,22 +72,23 @@ function StatusBoard() {
                 {
                     data ? (data.map(res => {
                         return (
-                            <>
+                            <div>
                                 {
-                                    !res.order_status && res.kitchen_orders ? (<div className="per-token-no" style={{ backgroundColor: "white", margin: "20px" }}>
-                                        <h1>{res.token_no}</h1>
-                                        {
-                                            role_id == 6298 ? (<Button style={{ margin: "15px" }} sx={{
-                                                color: "white", backgroundColor: "rgb(240, 125, 161)", '&:hover': {
-                                                    backgroundColor: "black", color: "white"
-                                                }
-                                            }} variant='contained' onClick={() => { handleTokenClear(res.token_no) }}>remove</Button>) : null
-                                        }
+                                    !res.order_status && res.kitchen_orders ? (
+                                        <div className="per-token-no" style={{ backgroundColor: "white", margin: "20px" }}>
+                                            <h1>{res.token_no}</h1>
+                                            {
+                                                role_id == 6298 ? (<Button style={{ margin: "15px" }} sx={{
+                                                    color: "white", backgroundColor: "rgb(240, 125, 161)", '&:hover': {
+                                                        backgroundColor: "black", color: "white"
+                                                    }
+                                                }} variant='contained' onClick={() => { handleTokenClear(res.token_no) }}>remove</Button>) : null
+                                            }
 
-                                    </div>) : null
+                                        </div>) : null
                                 }
 
-                            </>
+                            </div>
                         )
                     })) : <h3>No Pending tokens</h3>
                 }
