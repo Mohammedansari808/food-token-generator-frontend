@@ -94,6 +94,7 @@ function App() {
                 <AllOrders /></Protectedroute>} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+
           </dataContext.Provider>
         </div>
       </PrintProvider>

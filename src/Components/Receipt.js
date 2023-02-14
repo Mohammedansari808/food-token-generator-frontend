@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { fullLink } from './link';
 import PrintProvider, { NoPrint, Print } from 'react-easy-print';
 function Receipt() {
+
     const role_id = 1
     const dispatch = useDispatch()
     const data = useSelector((state) => state.order.orders)
@@ -92,6 +93,7 @@ function Receipt() {
         <div>
             <PrintProvider>
                 <Print>
+
                     <div className="token-list" id="printable">
                         <h2>kk Restaurant</h2>
                         <p>chennai</p>
@@ -148,8 +150,11 @@ function Receipt() {
                                                 </div>
                                             </NoPrint>
                                             <NoPrint>
+
+
                                                 <Button variant="contained" color="error" onClick={() => { dispatch(removeOrder(res.name)) }}>remove</Button>
                                             </NoPrint>
+
                                         </div>
 
                                     </div>
@@ -190,6 +195,7 @@ function Receipt() {
                 </Print>
 
             </PrintProvider >
+
         </div >
 
     )
