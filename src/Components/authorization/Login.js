@@ -39,8 +39,9 @@ function Login() {
                 localStorage.setItem("email", result.email)
                 navigate("/products")
             } else {
-                toast.error("username or password is incorrect please try again ")
                 setLoad(false)
+                toast.error("username or password is incorrect please try again ")
+
 
                 navigate("/")
             }

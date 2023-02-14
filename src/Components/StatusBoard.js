@@ -21,13 +21,14 @@ function StatusBoard() {
             .then(data => data.json())
             .then(result => { setData(result.getOrders) })
 
-        console.log(data)
-
     }, [])
 
     const handleRefresh = () => {
         fetch(`${fullLink}/kkorders/orders`, {
-            "x-auth-token": authToken
+            headers: {
+                "x-auth-token": authToken
+            }
+
         })
             .then(data => data.json())
             .then(result => { setData(result.getOrders) })
