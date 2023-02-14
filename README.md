@@ -1,5 +1,5 @@
 #HOW TO USE THIS PAGE
-## This page is used to Create tokens in the restaurant. TOKEN + ORDER same will be created in the products page with the help of REDUX. To select the food EASLY FILTER SECTION is added in the PRODUCTS PAGE The created tokens will sent to KITCHEN PAGE. When the Kitchen team Prepares the dish.They Will click ready so these tokens will go to the TOKEN BOARD which will be in the PRODUCTS PAGE . Finally after giving the order to the person ,admin has the access to remove the token from the TOKEN BOARD
+## This page is used to Create tokens in the restaurant. TOKEN + ORDER same will be created in the products page with the help of REDUX. To select the food EASLY FILTER SECTION is added in the PRODUCTS PAGE The created tokens will sent to KITCHEN PAGE. When the Kitchen team Prepares the dish.They Will click ready so these tokens will go to the TOKEN BOARD which will be in the PRODUCTS PAGE . Finally after giving the order to the person ,admin has the access to remove the token from the TOKEN BOARD . you can see the analysis of earnings by seeing DAILY CHARTS and MONTHLY CHARTS of EARNINGS which is fetched from the database
 
 
 # Getting Started with Create React App
