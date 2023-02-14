@@ -12,6 +12,13 @@
     grid-template-columns: 2.5fr 0.5fr
 }
 
+@media screen and (max-width: 576px) {
+    .all-cards-1 {
+        display: grid;
+        grid-template-columns: 1fr
+    }
+}
+
 .card:hover {
 
     box-shadow: 1px 1px 20px rgb(187, 187, 187);
