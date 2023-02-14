@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom'
 import Filter from './Filter'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import PrintProvider, { NoPrint, Print } from 'react-easy-print'
 import { fullLink } from '../link'
 function Product() {
 
