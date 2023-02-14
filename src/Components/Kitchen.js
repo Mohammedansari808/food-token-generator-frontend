@@ -43,7 +43,7 @@ function Kitchen() {
 
 
         if (result.message === "success") {
-            toast.success("order ready token sent to Token board")
+            toast.success("Order ready check Token board located in products page")
             setData(filterData)
         } else {
             toast.success("order not sentplease try again")

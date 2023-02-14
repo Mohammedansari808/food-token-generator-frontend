@@ -14,7 +14,6 @@ const bookVali = Yup.object({
 function Login() {
     const [load, setLoad] = useState(false)
     const navigate = useNavigate()
-
     const formik = useFormik({
         initialValues: {
             username: "admin",
@@ -41,8 +40,6 @@ function Login() {
             } else {
                 setLoad(false)
                 toast.error("username or password is incorrect please try again ")
-
-
                 navigate("/")
             }
         }
@@ -50,12 +47,12 @@ function Login() {
     return (
 
         <div >
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ textAlign: "center" }}>
                 <h2 style={{ color: "white", margin: "15px" }}>Login</h2>
+                <p style={{ color: "white", margin: "5px" }}>for ADMIN username : <b>admin</b> password : <b>admin123</b></p>
+                <p style={{ color: "white", margin: "5px" }}>Signup to work in restaurant</p>
             </div>
-
             <div className='form-box'>
-
                 <div>
                     <form className='edit-form' onSubmit={formik.handleSubmit}>
                         <TextField onBlur={formik.handleBlur} style={{ margin: "15px", width: "300px" }} id="standard-basic"
@@ -63,7 +60,6 @@ function Login() {
                             value={formik.values.username} variant="standard" />
                         <div className="formik-errors">
                             {formik.touched.username && formik.errors.username ? formik.errors.username : null}
-
                         </div>
                         <TextField onBlur={formik.handleBlur} style={{ margin: "15px", width: "300px" }} id="standard-basic"
                             name="password" label="Password" onChange={formik.handleChange}
@@ -83,6 +79,7 @@ function Login() {
                 </div>
 
             </div>
+
 
         </div>
     )
