@@ -59,7 +59,7 @@ function PasswordChange() {
             <div className='form-box'>
                 <form className='edit-form' onSubmit={formik.handleSubmit}>
                     <TextField onBlur={formik.onBlur} style={{ margin: "15px", width: "300px" }} id="standard-basic"
-                        name="newpassword" label="Enter new password" onChange={formik.handleChange}
+                        name="newpassword" label="Enter new password" type="password" onChange={formik.handleChange}
                         value={formik.values.newpassword} variant="standard" />
                     <div className='formik-errors'>
                         {formik.touched.newpassword && formik.errors.newpassword ? formik.errors.newpassword : null}

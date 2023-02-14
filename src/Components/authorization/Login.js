@@ -64,7 +64,7 @@ function Login() {
                             {formik.touched.username && formik.errors.username ? formik.errors.username : null}
                         </div>
                         <TextField onBlur={formik.handleBlur} style={{ margin: "15px", width: "300px" }} id="standard-basic"
-                            name="password" label="Password" onChange={formik.handleChange}
+                            name="password" label="Password" onChange={formik.handleChange} type="password"
                             value={formik.values.password} variant="standard" />
                         <div className="formik-errors">
                             {formik.touched.password && formik.errors.password ? formik.errors.password : null}
