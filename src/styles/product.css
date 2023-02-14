@@ -19,6 +19,16 @@
     }
 }
 
+@media print {
+    #all-products {
+        visibility: hidden;
+    }
+
+    #filter-section {
+        visibility: hidden;
+    }
+}
+
 .card:hover {
 
     box-shadow: 1px 1px 20px rgb(187, 187, 187);

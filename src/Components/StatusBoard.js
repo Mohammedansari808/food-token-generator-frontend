@@ -8,9 +8,12 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import { fullLink } from './link'
 import { toast } from 'react-toastify'
 function StatusBoard() {
+    // this BOARD shows the TOKEN whose is ORDER READY it can can be removed only by the admin
+
     const role_id = localStorage.getItem('role_id')
     const authToken = localStorage.getItem("token")
     const [data, setData] = useState([])
+    //fetching the data
     useEffect(() => {
 
         const fetchOrders = fetch(`${fullLink}/kkorders/orders`, {
@@ -22,7 +25,7 @@ function StatusBoard() {
             .then(result => { setData(result.getOrders) })
 
     }, [])
-
+    //for refresh button
     const handleRefresh = () => {
         fetch(`${fullLink}/kkorders/orders`, {
             headers: {
@@ -33,7 +36,7 @@ function StatusBoard() {
             .then(data => data.json())
             .then(result => { setData(result.getOrders) })
     }
-
+    //to remove token from visibility
     const handleTokenClear = async (token) => {
 
         const filterData = data.filter((res) => (

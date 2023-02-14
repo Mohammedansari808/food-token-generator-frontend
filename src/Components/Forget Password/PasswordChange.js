@@ -7,13 +7,17 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Button from '@mui/material/Button';
 import { fullLink } from '../link';
+//yup validation
 const bookV = Yup.object({
     newpassword: Yup.string().min(3, "Please enter a valid password").required("Please enter the new Password")
 })
 function PasswordChange() {
+    //for loading
     const [load, setLoad] = useState(false)
     const navigate = useNavigate()
+    //getting from params
     const { username } = useParams()
+    //formik form
     const formik = useFormik({
 
         initialValues: {

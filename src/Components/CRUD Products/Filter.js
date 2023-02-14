@@ -5,8 +5,11 @@ import TextField from '@mui/material/TextField';
 import { fullLink } from '../link';
 
 function Filter() {
+  //usecontext method used
   const { data, setData } = useContext(dataContext)
+  //for authentiction
   const token = localStorage.getItem("token")
+  // it is for after full backspace to show full data in the page
   const filterRefresh = () => {
     fetch(`${fullLink}/kkproducts/products`, {
       headers: {
@@ -16,11 +19,14 @@ function Filter() {
       .then(res => res.json())
       .then(data => { setData(data.products) })
   }
+  // getting value from form
   const handleChange = (e) => {
     const value = e.target.value
     const valueSplit = value.split("")
 
     if (valueSplit.length) {
+      //filtering using includes and map into new array to show the datas which has same letter
+      //word
       let filterData = data.filter(res => {
         return (res.name.toLowerCase().includes(value))
       }).map(filteredName => {
@@ -29,6 +35,7 @@ function Filter() {
       setData(filterData)
 
     } else {
+      // it is for after full backspace to show full data in the page
       filterRefresh()
     }
   }

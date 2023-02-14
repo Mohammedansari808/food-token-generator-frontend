@@ -8,8 +8,11 @@ import { fullLink } from '../link';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function Forget() {
+    // in here verification will be sent to email
+    //for loading
     const [load, setLoad] = useState(false)
     const navigate = useNavigate()
+    //formik form
     const formik = useFormik({
         initialValues: {
             username: "",

@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import "../../styles/form.css"
 import { fullLink } from '../link';
 
-
+//yup validation
 const bookVali = Yup.object({
     name: Yup.string().min(1, "please enter a product").required("Please fill Product Field"),
     image: Yup.string().min(10, "Please copy and paste the valid image address").required("Copy and paste the image address"),
@@ -18,17 +18,25 @@ const bookVali = Yup.object({
     rate: Yup.number().min(1, "please enter rate").required("Please fill Rate Field"),
 })
 function EditProduct() {
+    //usecontext method used
     const { data, setData, data2 } = useContext(dataContext)
+    //for authentication
     const role_id = localStorage.getItem("role_id")
     const token = localStorage.getItem("token")
 
-    const { id } = useParams()
+
+    //for loading
     const [load, setLoad] = useState(false)
+    //getting particular data from the link using :id to paste the current data in the form 
+    //field to edit
+    const { id } = useParams()
     const filData = data.filter((res) => {
         return (res.name == id)
     })
-    const navigate = useNavigate()
 
+
+    const navigate = useNavigate()
+    //formik form
     const formik = useFormik({
         initialValues: {
             name: filData[0].name,

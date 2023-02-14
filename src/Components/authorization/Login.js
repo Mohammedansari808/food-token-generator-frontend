@@ -6,18 +6,20 @@ import Button from '@mui/material/Button';
 import * as Yup from "yup";
 import { fullLink } from '../link';
 import { toast } from 'react-toastify';
-
+//yup validation
 const bookVali = Yup.object({
     username: Yup.string().min(3, "username or password is incorrect").required("Please fill the username"),
     password: Yup.string().min(4, "username or password is incorrect").required("Please fill the password")
 })
 function Login() {
+    //for loading button
     const [load, setLoad] = useState(false)
     const navigate = useNavigate()
+    //add form 
     const formik = useFormik({
         initialValues: {
             username: "admin",
-            password: "admin"
+            password: "admin123"
         }, validationSchema: bookVali, onSubmit: async (values) => {
             setLoad(true)
             const loginInfo = {

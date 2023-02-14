@@ -17,9 +17,11 @@ import {
 import { Line } from 'react-chartjs-2';
 import { fullLink } from './link';
 
+
+//These are datas of DAILY AND MONTHLY EARNINGS fetched from DATABASE
+//using AGGREGATE method IN MONGODB
+
 const date = new Date()
-
-
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -36,12 +38,16 @@ ChartJS.register(
 
 
 export function Chart() {
+    //to toggle monthly and daily earnings button
     const [show, setShow] = useState(true)
+    //to store daily earnings in state
     const [rateData, setRateData] = useState([]);
+    //to store monthly earnings in state
     const [monthlyData, setMonthlyData] = useState([])
+    //for authentication
     const role_id = localStorage.getItem("role_id")
     const token = localStorage.getItem('token')
-
+    //fetching orders and storing in two states
     useEffect(() => {
         fetch(`${fullLink}/kkorders/orders`, {
             headers: {
@@ -62,17 +68,18 @@ export function Chart() {
         },
     };
 
-
+    //fetched data of dates was not in order so SORTED
     const dailyEarnDateSort = rateData.sort((a, b) => {
         return (
             new Date(a.date) - new Date(b.date)
         )
     });
-
     const daily = dailyEarnDateSort.map((res) => {
         let date = new Date(res.date).toLocaleDateString()
         return (date.toString())
     });
+
+    //fetched data of months was not in order so SORTED
     const monthlyEarnSort = monthlyData.sort((a, b) => {
         return (
             new Date(a.date) - new Date(b.date)
@@ -83,11 +90,13 @@ export function Chart() {
         return (month)
     });
 
+
+    //daily total earns which will be in y axis
     const daily_earns = rateData.map((res) => {
         return (res.total)
     })
 
-
+    //monthly total earns which will be in y axis
     const monthly_earns = monthlyData.map((res) => {
         return (res.total)
     })

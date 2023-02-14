@@ -8,7 +8,7 @@ import * as Yup from "yup";
 import { toast } from 'react-toastify';
 import "../../styles/form.css"
 import { fullLink } from '../link';
-
+//yup validation 
 const bookVali = Yup.object({
     name: Yup.string().min(1, "please enter a product").required("Please fill Product Field"),
     image: Yup.string().min(10, "Please copy and paste the valid image address").required("Copy and paste the image address"),
@@ -16,11 +16,13 @@ const bookVali = Yup.object({
     rate: Yup.number().min(1, "please enter rate").required("Please fill Rate Field"),
 })
 function AddProduct() {
+    //for authentication
     const role_id = localStorage.getItem("role_id")
     const token = localStorage.getItem("token")
+    //for loading
     const [load, setLoad] = useState(false)
     const navigate = useNavigate()
-
+    //form using yup
     const formik = useFormik({
         initialValues: {
             name: "",
@@ -29,6 +31,7 @@ function AddProduct() {
             rate: "",
         }, validationSchema: bookVali, onSubmit: async (values) => {
             setLoad(true)
+            //upload data
             const productInfo = {
                 name: values.name,
                 image: values.image,
@@ -52,6 +55,7 @@ function AddProduct() {
                 }, 2000);
             } else {
                 setLoad(false)
+                //if same name is uploaded it will show error
                 toast.error("Please add different product")
             }
 

@@ -22,6 +22,18 @@
         text-align: center;
     }
 
+    .remove-button {
+        visibility: hidden;
+    }
+
+    #sub-button-section {
+        visibility: hidden;
+    }
+
+    #in-de-button {
+        visibility: hidden;
+    }
+
     #list-tab {
         margin-left: 120px;
     }

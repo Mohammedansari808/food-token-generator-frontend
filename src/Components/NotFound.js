@@ -1,5 +1,6 @@
 import React from 'react'
 import "../styles/notfound.css"
+//copied template
 function NotFound() {
     return (
         <div className="div-error">

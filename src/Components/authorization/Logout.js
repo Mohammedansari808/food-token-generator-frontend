@@ -6,7 +6,9 @@ import { useNavigate } from 'react-router-dom';
 
 function Logout() {
     const navigate = useNavigate()
+    //for loading
     const [load, setLoad] = useState(false)
+    //removing all authentication
     const logout = () => {
         setLoad(true)
         localStorage.removeItem('token')

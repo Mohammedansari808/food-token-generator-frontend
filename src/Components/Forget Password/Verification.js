@@ -12,15 +12,19 @@ const bookV = Yup.object({
     otp: Yup.string().min(4, "Please enter a valid OTP").required("Please enter the OTP")
 })
 function Verification() {
+    //this is for forget password verification link
+    //for loading
     const [load, setLoad] = useState(false)
-
+    //getting data using params
     const { username, id } = useParams()
     const navigate = useNavigate()
+    //formik forms
     const formik = useFormik({
         initialValues: {
             otp: "",
         }, validationSchema: bookV, onSubmit: async (values) => {
             setLoad(true)
+            //this otp will be deleted after uploading to database within 2 minutes
             const otp = { otp: values.otp }
 
             let data = await fetch(`${fullLink}/verification-link/${username}/${id}`, {
@@ -34,7 +38,7 @@ function Verification() {
 
             const result = await data.json()
             if (result.message == "otp success") {
-
+                //if otp confirmed it will redirect to password change
                 toast.success("OTP Confirmed", { position: toast.POSITION.TOP_CENTER })
                 localStorage.setItem("token", result.token)
                 navigate(`/password-change/${result.username}/`)

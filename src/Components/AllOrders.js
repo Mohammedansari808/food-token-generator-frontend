@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import { fullLink } from './link';
 import "../styles/allorders.css"
 import FilterAllOrders from './FilterAllOrders';
-
+//copied from mui site
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.common.black,
@@ -37,8 +37,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 function AllOrders() {
     const [data, setData] = useState([])
+    //for authenticaton 
     const role_id = localStorage.getItem("role_id")
     const token = localStorage.getItem("token")
+    //getting all orders 
     useEffect(() => {
         fetch(`${fullLink}/kkorders/orders`, {
             headers: {

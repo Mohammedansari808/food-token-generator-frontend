@@ -10,9 +10,11 @@ import TextField from '@mui/material/TextField';
 import { fullLink } from './link';
 
 function FilterAllOrders({ data, setData }) {
+    //for authentication
     const token = localStorage.getItem("token")
 
     const [value, setValue] = useState(0)
+    //values from form
     const handleChange = (e) => {
         setValue(e.target.value)
         if (!e.target.value) {
@@ -20,6 +22,7 @@ function FilterAllOrders({ data, setData }) {
         }
 
     }
+    // after full backspace to display all data again
     const filterRefreshAllOrders = () => {
         fetch(`${fullLink}/kkorders/orders`, {
             headers: {
@@ -29,7 +32,6 @@ function FilterAllOrders({ data, setData }) {
             .then(data => { setData(data.getOrders) })
     }
     const filterSubmit = () => {
-
         if (value) {
             let filterData = data.filter(res => {
                 return res.token_no == value

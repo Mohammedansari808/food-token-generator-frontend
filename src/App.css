@@ -19,6 +19,12 @@
 
   }
 
+  @media print {
+    .navibar {
+      visibility: hidden;
+    }
+  }
+
   .flex {
     display: flex;
     justify-content: space-between;

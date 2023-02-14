@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-
+// THIS REDUX IS TO BOOK ORDERS
 export const OrderSlice = createSlice({
     name: "order",
     initialState: {

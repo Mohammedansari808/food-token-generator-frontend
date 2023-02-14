@@ -22,19 +22,22 @@ import PasswordChange from './Components/Forget Password/PasswordChange';
 import Logout from './Components/authorization/Logout';
 import AllOrders from './Components/AllOrders';
 import NotFound from './Components/NotFound';
+//use context method
 export const dataContext = createContext()
 export let userData = createContext()
+
 function App() {
+  //for authentication
   const role_id = localStorage.getItem("role_id")
   const navigate = useNavigate()
   const [data, setData] = useState([])
+
 
 
   return (
     <>
 
       <ToastContainer />
-
       <nav className="navibar navbar navbar-expand-lg navbar-dark">
         <div className="container-fluid">
 
@@ -52,8 +55,6 @@ function App() {
                   {role_id == 6298 ? <Link className="nav-link active" to="/charts">Charts</Link> : null}
                   {role_id == 6298 ? <Link className="nav-link active" to="/allorders">All Orders</Link> : null}
                 </>) : null}
-
-
             </div>
           </div>
           <h1 style={{ marginTop: "8px" }} className="navbar-brand nv-color" href="#">KK Restaurant</h1>
@@ -82,12 +83,9 @@ function App() {
             <Route path="kitchen" element={<Protectedroute><Kitchen /></Protectedroute>} />
             <Route path="statusboard" element={<Protectedroute><StatusBoard /></Protectedroute>} />
             <Route path="charts" element={<Protectedroute><Chart /></Protectedroute>} />
-            <Route path="edit/:id" element={<Protectedroute>
-              <EditProduct /></Protectedroute>} />
-            <Route path="addproduct" element={<Protectedroute>
-              <AddProduct /></Protectedroute>} />
-            <Route path="allorders" element={<Protectedroute>
-              <AllOrders /></Protectedroute>} />
+            <Route path="edit/:id" element={<Protectedroute><EditProduct /></Protectedroute>} />
+            <Route path="addproduct" element={<Protectedroute><AddProduct /></Protectedroute>} />
+            <Route path="allorders" element={<Protectedroute><AllOrders /></Protectedroute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
 

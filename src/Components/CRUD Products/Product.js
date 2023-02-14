@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addOrder } from '../../Redux/Reducers/Order.Slice'
 import { useContext } from 'react'
 import { dataContext } from '../../App'
+import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify'
 import Button from '@mui/material/Button';
 import "../../styles/product.css"
@@ -12,16 +13,21 @@ import Filter from './Filter'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { fullLink } from '../link'
-function Product() {
 
+
+function Product() {
+    //for authentication 
     const role_id = localStorage.getItem("role_id")
     const token = localStorage.getItem("token")
-
     const navigate = useNavigate()
+    //use context method
     const { data, setData } = useContext(dataContext)
     const [showBill, setShowBill] = useState(true)
-    const dispatch = useDispatch()
 
+
+    //REDUX Method is used
+    const dispatch = useDispatch()
+    //fetching data 
     useEffect(() => {
         fetch(`${fullLink}/kkproducts/products`, {
             headers: {
@@ -32,16 +38,33 @@ function Product() {
             .then(data => { setData(data.products) })
     }, [])
 
-
-    const handleDelete = (name) => {
+    //deleting the product and using the filter method to change in the page
+    const handleDelete = (name, id) => {
         const deleteData = data.filter((res) => (res.name != name))
-        setData(deleteData)
+
+
+        fetch(`${fullLink}/kkproducts/products/${id}`, {
+            method: "DELETE",
+            headers: {
+                "x-auth-token": token
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.message == "success") {
+                    setData(deleteData);
+                    toast.success("delete success")
+                } else {
+                    toast.error("delete unsuccess")
+                }
+            })
+
     }
 
     return (
         <>
 
-            <div className='filter-token-board'>
+            <div id="filter-section" className='filter-token-board'>
                 <Filter />
                 {role_id == 6298 || 1 ? (<>
                     <Button sx={{
@@ -66,7 +89,7 @@ function Product() {
 
             <div className={showBill ? 'all-cards-1' : "all-cards-2"} >
 
-                <div className="card-group" style={{ display: "flex" }}>
+                <div id="all-products" className="card-group" style={{ display: "flex" }}>
                     {data.map(data => {
                         return (
                             <div>
@@ -119,7 +142,7 @@ function Product() {
                                                     disabled={false}
                                                     color="error"
                                                     variant="contained"
-                                                    onClick={() => { handleDelete(data.name) }}
+                                                    onClick={() => { handleDelete(data.name, data._id) }}
                                                 >
                                                     Delete
                                                 </Button>
@@ -139,6 +162,7 @@ function Product() {
                     {
                         showBill ? (<div>
                             <Receipt />
+                            <button onClick={() => { window.print() }}>clidnflsjf</button>
                         </div>
                         ) : null
                     }

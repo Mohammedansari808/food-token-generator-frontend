@@ -8,6 +8,7 @@ import { fullLink } from '../link';
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+// validation using yup
 const valiBook = Yup.object({
     fullname: Yup.string().min(3, "Please type username").required("Please fill the fullname"),
     username: Yup.string().min(5, "Please type username").required("Please fill the username"),
@@ -16,8 +17,9 @@ const valiBook = Yup.object({
 })
 
 function Signup() {
+    //for loading
     const [load, setLoad] = useState(false)
-
+    //form using formik
     const formik = useFormik({
         initialValues: {
             fullname: "",

@@ -6,8 +6,10 @@ import { toast } from 'react-toastify';
 import { dataContext } from '../App';
 import { fullLink } from './link';
 function Kitchen() {
+    //after click submit in receipt or bill that will come to kitchen 
     const authToken = localStorage.getItem("token")
     const [data, setData] = useState([])
+    //fetching available orders
     useEffect(() => {
         fetch(`${fullLink}/kkorders/orders`, {
             headers: {
@@ -20,10 +22,8 @@ function Kitchen() {
 
     }, [])
 
-
-
-
-    let arr = []
+    //after order order kitchen people can click ready button it will show on TOKEN BOARD
+    //we can check that button on products    
     const handleOrderReady = async (token) => {
 
         const filterData = data.filter((res) => (

@@ -8,30 +8,38 @@ import "../styles/receipt.css"
 import { toast } from 'react-toastify';
 import { fullLink } from './link';
 function Receipt() {
-
-    const role_id = 1
-    const dispatch = useDispatch()
-    const data = useSelector((state) => state.order.orders)
-    const authToken = localStorage.getItem("token")
-
+    // this is the receipt which showed on products page
+    //after clicking submit button this order will go to kitchen so they can prepare the dish
     let arr = []
     let total = 0
     let gst = 0
+    //redux
+    const dispatch = useDispatch()
+    const data = useSelector((state) => state.order.orders)
+    //authentication
+    const authToken = localStorage.getItem("token")
+    //data
     const [cust_name, setCust_name] = useState("")
     const [server, setServer] = useState("")
     const [token, setToken] = useState(0)
     const [confirm, setConfirm] = useState(false)
     const dateTime = new Date()
-
     const date = dateTime.toLocaleString()
+
+
+    //customer name
     const handleChange = (e) => {
 
         setCust_name(e.target.value)
     }
+
+    //server name
     const handleServerChange = (e) => {
 
         setServer(e.target.value)
     }
+
+    //fetching orders
     useEffect(() => {
         fetch(`${fullLink}/kkorders/orders`, {
             headers: {
@@ -42,6 +50,8 @@ function Receipt() {
             .then(orders => setToken(orders.getOrders.length))
     }, [])
 
+
+    //uploading the order//
     const handleSubmit = async () => {
         const finaldata = {
             dine_name: cust_name,
@@ -85,9 +95,7 @@ function Receipt() {
 
     }
 
-    const handleCustomerSubmit = async () => {
 
-    }
     return (
         <div >
 
@@ -130,7 +138,7 @@ function Receipt() {
                         return (
                             <div id="list-tab">
                                 <div className='per-order' >
-                                    <div style={{ display: "flex", justifyContent: "space-between", width: "100px", fontSize: "14px" }}>
+                                    <div id='order-list' style={{ display: "flex", justifyContent: "space-between", width: "100px", fontSize: "14px" }}>
 
                                         <div>
                                             {res.name} {res.quantity}
@@ -140,7 +148,7 @@ function Receipt() {
                                         </div>
                                     </div>
 
-                                    <div style={{ display: "flex" }}>
+                                    <div id="in-de-button" style={{ display: "flex" }}>
                                         <button className='inde-button' onClick={() => { dispatch(decrement(res.name)) }}>-</button>
                                         <div style={{ margin: "10px" }}>{res.quantity}</div>
                                         <button className='inde-button' onClick={() => { dispatch(increment(res.name)) }}>+</button>
@@ -148,7 +156,7 @@ function Receipt() {
 
 
 
-                                    <Button variant="contained" color="error" onClick={() => { dispatch(removeOrder(res.name)) }}>remove</Button>
+                                    <Button className="remove-button" variant="contained" color="error" onClick={() => { dispatch(removeOrder(res.name)) }}>remove</Button>
 
 
                                 </div>
@@ -172,23 +180,23 @@ function Receipt() {
                 <hr />
 
                 <h2>Total : <strong>₹{gst}</strong></h2>
+                <div id="sub-button-section">
+                    {
+                        !confirm ? <Button style={{ margin: "15px" }} sx={{
+                            color: "white", backgroundColor: "rgb(240, 125, 161)", '&:hover': {
+                                backgroundColor: "black", color: "white"
+                            }
+                        }} variant='contained' onClick={() => { setConfirm(true) }}>submit</Button> :
+                            (
+                                <div>
+                                    <Button style={{ margin: "15px" }} color="success" variant='contained' onClick={() => { handleSubmit(); setConfirm(false) }}>yes</Button>
+                                    <Button style={{ margin: "15px" }} color="error" variant='contained' onClick={() => { setConfirm(false) }}>no</Button>
+                                </div>
+                            )
+                    }
 
-                {
-                    !confirm ? <Button style={{ margin: "15px" }} sx={{
-                        color: "white", backgroundColor: "rgb(240, 125, 161)", '&:hover': {
-                            backgroundColor: "black", color: "white"
-                        }
-                    }} variant='contained' onClick={() => { setConfirm(true) }}>submit</Button> :
-                        (
-                            <div>
-                                <Button style={{ margin: "15px" }} color="success" variant='contained' onClick={() => { handleSubmit(); setConfirm(false) }}>yes</Button>
-                                <Button style={{ margin: "15px" }} color="error" variant='contained' onClick={() => { setConfirm(false) }}>no</Button>
-                            </div>
-                        )
-                }
-
+                </div>
             </div>
-
 
         </div >
 
