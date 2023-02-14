@@ -8,7 +8,7 @@ import "../styles/receipt.css"
 import { toast } from 'react-toastify';
 import { fullLink } from './link';
 import PrintProvider, { NoPrint, Print } from 'react-easy-print';
-function Receipt({ props }) {
+function Receipt() {
     const role_id = 1
     const dispatch = useDispatch()
     const data = useSelector((state) => state.order.orders)
@@ -179,7 +179,7 @@ function Receipt({ props }) {
                                 }} variant='contained' onClick={() => { setConfirm(true) }}>submit</Button> :
                                     (
                                         <div>
-                                            <Button style={{ margin: "15px" }} color="success" variant='contained' onClick={() => { role_id == 1 ? handleCustomerSubmit() : handleSubmit(); setConfirm(false) }}>yes</Button>
+                                            <Button style={{ margin: "15px" }} color="success" variant='contained' onClick={() => { handleSubmit(); setConfirm(false) }}>yes</Button>
                                             <Button style={{ margin: "15px" }} color="error" variant='contained' onClick={() => { setConfirm(false) }}>no</Button>
                                         </div>
                                     )

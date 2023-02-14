@@ -2,12 +2,13 @@ import React from 'react'
 import { useContext } from 'react'
 import { dataContext } from '../../App'
 import TextField from '@mui/material/TextField';
+import { fullLink } from '../link';
 
 function Filter() {
   const { data, setData } = useContext(dataContext)
   const token = localStorage.getItem("token")
   const filterRefresh = () => {
-    fetch("http://localhost:4000/kkproducts/products", {
+    fetch(`${fullLink}/kkproducts/products`, {
       headers: {
         "x-auth-token": token
       }

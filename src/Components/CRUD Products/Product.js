@@ -12,6 +12,7 @@ import Filter from './Filter'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import PrintProvider, { NoPrint, Print } from 'react-easy-print'
+import { fullLink } from '../link'
 function Product() {
 
     const role_id = localStorage.getItem("role_id")
@@ -23,7 +24,7 @@ function Product() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        fetch("http://localhost:4000/kkproducts/products", {
+        fetch(`${fullLink}/kkproducts/products`, {
             headers: {
                 "x-auth-token": token
             }

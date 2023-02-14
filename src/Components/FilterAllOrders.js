@@ -7,6 +7,7 @@ import { dataContext } from '../App'
 import Button from '@mui/material/Button';
 import "../styles/product.css"
 import TextField from '@mui/material/TextField';
+import { fullLink } from './link';
 
 function FilterAllOrders({ data, setData }) {
     const token = localStorage.getItem("token")
@@ -20,7 +21,7 @@ function FilterAllOrders({ data, setData }) {
 
     }
     const filterRefreshAllOrders = () => {
-        fetch("http://localhost:4000/kkorders/orders", {
+        fetch(`${fullLink}/kkorders/orders`, {
             headers: {
                 "x-auth-token": token
             }
