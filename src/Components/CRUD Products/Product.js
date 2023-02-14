@@ -41,115 +41,113 @@ function Product() {
 
     return (
         <>
-            <PrintProvider>
-                <NoPrint>
-                    <div className='filter-token-board'>
-                        <Filter />
-                        {role_id == 6298 || 1 ? (<>
-                            <Button sx={{
-                                color: "white", margin: "20px", backgroundColor: "rgb(240, 125, 161)", '&:hover': {
-                                    backgroundColor: "white", color: "black"
 
-                                }
-                            }}
-                                className="btn btn-primary"
-                                disabled={false}
-                                variant="contained"
-                                onClick={() => { navigate("/statusboard") }}
-                            >Token Board</Button>
-                            <Button variant="contained" sx={{
-                                color: "white", backgroundColor: "rgb(240, 125, 161)", '&:hover': {
-                                    backgroundColor: "white", color: "black"
-                                }
-                            }} onClick={() => { setShowBill(!showBill) }}>{showBill ? "hide bill" : "show bill"}</Button>
-                        </>) : null}
+            <div className='filter-token-board'>
+                <Filter />
+                {role_id == 6298 || 1 ? (<>
+                    <Button sx={{
+                        color: "white", margin: "20px", backgroundColor: "rgb(240, 125, 161)", '&:hover': {
+                            backgroundColor: "white", color: "black"
 
-                    </div>
+                        }
+                    }}
+                        className="btn btn-primary"
+                        disabled={false}
+                        variant="contained"
+                        onClick={() => { navigate("/statusboard") }}
+                    >Token Board</Button>
+                    <Button variant="contained" sx={{
+                        color: "white", backgroundColor: "rgb(240, 125, 161)", '&:hover': {
+                            backgroundColor: "white", color: "black"
+                        }
+                    }} onClick={() => { setShowBill(!showBill) }}>{showBill ? "hide bill" : "show bill"}</Button>
+                </>) : null}
 
-                    <div className={showBill ? 'all-cards-1' : "all-cards-2"} >
+            </div>
 
-                        <div className="card-group" style={{ display: "flex" }}>
-                            {data.map(data => {
-                                return (
-                                    <div>
-                                        <div className="card">
+            <div className={showBill ? 'all-cards-1' : "all-cards-2"} >
 
-                                            <img
-                                                src={data.image}
-                                                className="card-img-top"
-                                                alt={`${data.name}-pizza`}
-                                            />
-                                            <div className="flash"></div>
-                                            <div className="card-body">
-                                                <h5 className="card-title">{data.name}</h5>
-                                                <p className="card-text">Rate : {data.rate}/-</p>
-                                                <p className="card-text">Pieces :{data.pieces}</p>
-                                                {role_id == 6298 || 1 ? (<Button
+                <div className="card-group" style={{ display: "flex" }}>
+                    {data.map(data => {
+                        return (
+                            <div>
+                                <div className="card">
+
+                                    <img
+                                        src={data.image}
+                                        className="card-img-top"
+                                        alt={`${data.name}-pizza`}
+                                    />
+                                    <div className="flash"></div>
+                                    <div className="card-body">
+                                        <h5 className="card-title">{data.name}</h5>
+                                        <p className="card-text">Rate : {data.rate}/-</p>
+                                        <p className="card-text">Pieces :{data.pieces}</p>
+                                        {role_id == 6298 || 1 ? (<Button
+                                            sx={{
+                                                color: "white", marginRight: "5px", backgroundColor: "rgb(240, 112, 152)", '&:hover': {
+                                                    backgroundColor: "black", color: "whitesmoke"
+                                                }
+                                            }}
+                                            className="btn btn-primary"
+                                            disabled={false}
+                                            variant="contained"
+                                            onClick={() => { dispatch(addOrder(data)) }}
+                                        >
+                                            Add
+                                        </Button>) : null}
+                                        {role_id == 6298 ? (
+                                            <><Button
+                                                sx={{
+                                                    color: "white", marginRight: "10px", '&:hover': {
+                                                        backgroundColor: "black", color: "white"
+                                                    }
+                                                }}
+                                                className="btn btn-primary"
+                                                disabled={false}
+                                                variant="contained"
+                                                onClick={() => { navigate(`/edit/${data.name}`) }}
+                                            >
+                                                Edit
+                                            </Button>
+                                                <Button
                                                     sx={{
-                                                        color: "white", marginRight: "5px", backgroundColor: "rgb(240, 112, 152)", '&:hover': {
-                                                            backgroundColor: "black", color: "whitesmoke"
+                                                        color: "white", marginRight: "10px", '&:hover': {
+                                                            backgroundColor: "black", color: "white"
                                                         }
                                                     }}
                                                     className="btn btn-primary"
                                                     disabled={false}
+                                                    color="error"
                                                     variant="contained"
-                                                    onClick={() => { dispatch(addOrder(data)) }}
+                                                    onClick={() => { handleDelete(data.name) }}
                                                 >
-                                                    Add
-                                                </Button>) : null}
-                                                {role_id == 6298 ? (
-                                                    <><Button
-                                                        sx={{
-                                                            color: "white", marginRight: "10px", '&:hover': {
-                                                                backgroundColor: "black", color: "white"
-                                                            }
-                                                        }}
-                                                        className="btn btn-primary"
-                                                        disabled={false}
-                                                        variant="contained"
-                                                        onClick={() => { navigate(`/edit/${data.name}`) }}
-                                                    >
-                                                        Edit
-                                                    </Button>
-                                                        <Button
-                                                            sx={{
-                                                                color: "white", marginRight: "10px", '&:hover': {
-                                                                    backgroundColor: "black", color: "white"
-                                                                }
-                                                            }}
-                                                            className="btn btn-primary"
-                                                            disabled={false}
-                                                            color="error"
-                                                            variant="contained"
-                                                            onClick={() => { handleDelete(data.name) }}
-                                                        >
-                                                            Delete
-                                                        </Button>
-                                                    </>) : null}
+                                                    Delete
+                                                </Button>
+                                            </>) : null}
 
-                                            </div>
-                                        </div>
                                     </div>
-                                )
-                            })
+                                </div>
+                            </div>
+                        )
+                    })
 
-                            }
+                    }
+                </div>
+
+                <div>
+
+                    {
+                        showBill ? (<div>
+                            <Receipt />
                         </div>
+                        ) : null
+                    }
 
-                        <div>
-                            <Print>
-                                {
-                                    showBill ? (<div>
-                                        <Receipt />
-                                    </div>
-                                    ) : null
-                                }
-                            </Print>
-                        </div>
+                </div>
 
-                    </div>
-                </NoPrint>
-            </PrintProvider>
+            </div>
+
         </>
 
 

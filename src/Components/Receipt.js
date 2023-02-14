@@ -7,7 +7,6 @@ import TextField from '@mui/material/TextField';
 import "../styles/receipt.css"
 import { toast } from 'react-toastify';
 import { fullLink } from './link';
-import PrintProvider, { NoPrint, Print } from 'react-easy-print';
 function Receipt() {
 
     const role_id = 1
@@ -90,111 +89,106 @@ function Receipt() {
 
     }
     return (
-        <div>
-            <PrintProvider>
-                <Print>
-
-                    <div className="token-list" id="printable">
-                        <h2>kk Restaurant</h2>
-                        <p>chennai</p>
-                        <h2>Token NO : {token}</h2>
-                        <TextField
-                            required
-                            id="standard-required"
-                            label="Server Name"
-                            variant="standard"
-                            onChange={handleServerChange}
-                        />
-                        <div style={{ marginTop: "10px" }}>{date}</div>
-                        <hr />
-                        <div>
-                            <h3>
-                                Dine in
-                            </h3>
-                            <TextField
-                                required
-                                id="standard-required"
-                                label="Customer Name"
-                                variant="standard"
-                                onChange={handleChange}
-                            />
-                        </div>
+        <div >
 
 
-                        <br />
-                        {
-                            data.map(res => {
-                                const rate = res.rate * res.quantity
-                                arr.push(rate)
-                                total = arr.reduce((acc, ini) => acc + ini)
-                                gst = total + (total * (5 / 100))
-
-                                return (
-                                    <div id="list-tab">
-                                        <div className='per-order' >
-                                            <div style={{ display: "flex", justifyContent: "space-between", width: "100px", fontSize: "14px" }}>
-
-                                                <div>
-                                                    {res.name} {res.quantity}
-                                                </div>
-                                                <div>
-                                                    ₹{rate}
-                                                </div>
-                                            </div>
-
-                                            <NoPrint>
-                                                <div style={{ display: "flex" }}>
-                                                    <button className='inde-button' onClick={() => { dispatch(decrement(res.name)) }}>-</button>
-                                                    <div style={{ margin: "10px" }}>{res.quantity}</div>
-                                                    <button className='inde-button' onClick={() => { dispatch(increment(res.name)) }}>+</button>
-                                                </div>
-                                            </NoPrint>
-                                            <NoPrint>
+            <div className="token-list" id="printable">
+                <h2>kk Restaurant</h2>
+                <p>chennai</p>
+                <h2>Token NO : {token}</h2>
+                <TextField
+                    required
+                    id="standard-required"
+                    label="Server Name"
+                    variant="standard"
+                    onChange={handleServerChange}
+                />
+                <div style={{ marginTop: "10px" }}>{date}</div>
+                <hr />
+                <div>
+                    <h3>
+                        Dine in
+                    </h3>
+                    <TextField
+                        required
+                        id="standard-required"
+                        label="Customer Name"
+                        variant="standard"
+                        onChange={handleChange}
+                    />
+                </div>
 
 
-                                                <Button variant="contained" color="error" onClick={() => { dispatch(removeOrder(res.name)) }}>remove</Button>
-                                            </NoPrint>
+                <br />
+                {
+                    data.map(res => {
+                        const rate = res.rate * res.quantity
+                        arr.push(rate)
+                        total = arr.reduce((acc, ini) => acc + ini)
+                        gst = total + (total * (5 / 100))
 
+                        return (
+                            <div id="list-tab">
+                                <div className='per-order' >
+                                    <div style={{ display: "flex", justifyContent: "space-between", width: "100px", fontSize: "14px" }}>
+
+                                        <div>
+                                            {res.name} {res.quantity}
                                         </div>
-
+                                        <div>
+                                            ₹{rate}
+                                        </div>
                                     </div>
 
-                                )
-                            })
-                        }
-                        <hr />
+                                    <div style={{ display: "flex" }}>
+                                        <button className='inde-button' onClick={() => { dispatch(decrement(res.name)) }}>-</button>
+                                        <div style={{ margin: "10px" }}>{res.quantity}</div>
+                                        <button className='inde-button' onClick={() => { dispatch(increment(res.name)) }}>+</button>
+                                    </div>
 
-                        <h2>subTotal : <strong>₹{total}</strong></h2>
-                        <div>
-                            <div className='gst-list'>
-                                <div>cgst @2.5%</div> <div>₹{((gst - total) / 2).toFixed(2)}</div>
-                            </div>
-                            <div className='gst-list'>
-                                <div>sgst @2.5%</div> <div> ₹{((gst - total) / 2).toFixed(2)}</div>
-                            </div>
-                        </div>
-                        <hr />
 
-                        <h2>Total : <strong>₹{gst}</strong></h2>
-                        <NoPrint>
-                            {
-                                !confirm ? <Button style={{ margin: "15px" }} sx={{
-                                    color: "white", backgroundColor: "rgb(240, 125, 161)", '&:hover': {
-                                        backgroundColor: "black", color: "white"
-                                    }
-                                }} variant='contained' onClick={() => { setConfirm(true) }}>submit</Button> :
-                                    (
-                                        <div>
-                                            <Button style={{ margin: "15px" }} color="success" variant='contained' onClick={() => { handleSubmit(); setConfirm(false) }}>yes</Button>
-                                            <Button style={{ margin: "15px" }} color="error" variant='contained' onClick={() => { setConfirm(false) }}>no</Button>
-                                        </div>
-                                    )
-                            }
-                        </NoPrint>
+
+                                    <Button variant="contained" color="error" onClick={() => { dispatch(removeOrder(res.name)) }}>remove</Button>
+
+
+                                </div>
+
+                            </div>
+
+                        )
+                    })
+                }
+                <hr />
+
+                <h2>subTotal : <strong>₹{total}</strong></h2>
+                <div>
+                    <div className='gst-list'>
+                        <div>cgst @2.5%</div> <div>₹{((gst - total) / 2).toFixed(2)}</div>
                     </div>
-                </Print>
+                    <div className='gst-list'>
+                        <div>sgst @2.5%</div> <div> ₹{((gst - total) / 2).toFixed(2)}</div>
+                    </div>
+                </div>
+                <hr />
 
-            </PrintProvider >
+                <h2>Total : <strong>₹{gst}</strong></h2>
+
+                {
+                    !confirm ? <Button style={{ margin: "15px" }} sx={{
+                        color: "white", backgroundColor: "rgb(240, 125, 161)", '&:hover': {
+                            backgroundColor: "black", color: "white"
+                        }
+                    }} variant='contained' onClick={() => { setConfirm(true) }}>submit</Button> :
+                        (
+                            <div>
+                                <Button style={{ margin: "15px" }} color="success" variant='contained' onClick={() => { handleSubmit(); setConfirm(false) }}>yes</Button>
+                                <Button style={{ margin: "15px" }} color="error" variant='contained' onClick={() => { setConfirm(false) }}>no</Button>
+                            </div>
+                        )
+                }
+
+            </div>
+
 
         </div >
 
