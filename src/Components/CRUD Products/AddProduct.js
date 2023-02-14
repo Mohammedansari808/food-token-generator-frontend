@@ -48,10 +48,11 @@ function AddProduct() {
             if (result.message === "success") {
                 toast.success("Product Added")
                 setTimeout(() => {
-                    navigate("/")
+                    navigate("/products")
                 }, 2000);
             } else {
-                toast.error("Please try again")
+                setLoad(false)
+                toast.error("Please add different product")
             }
 
 

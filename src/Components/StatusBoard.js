@@ -13,7 +13,11 @@ function StatusBoard() {
     const [data, setData] = useState([])
     useEffect(() => {
 
-        const fetchOrders = fetch(`${fullLink}/kkorders/orders`)
+        const fetchOrders = fetch(`${fullLink}/kkorders/orders`, {
+            headers: {
+                "x-auth-token": authToken
+            }
+        })
             .then(data => data.json())
             .then(result => { setData(result.getOrders) })
 
@@ -22,7 +26,9 @@ function StatusBoard() {
     }, [])
 
     const handleRefresh = () => {
-        fetch(`${fullLink}/kkorders/orders`)
+        fetch(`${fullLink}/kkorders/orders`, {
+            "x-auth-token": authToken
+        })
             .then(data => data.json())
             .then(result => { setData(result.getOrders) })
     }

@@ -103,7 +103,7 @@ function Receipt() {
                             variant="standard"
                             onChange={handleServerChange}
                         />
-                        <div>{date}</div>
+                        <div style={{ marginTop: "10px" }}>{date}</div>
                         <hr />
                         <div>
                             <h3>
@@ -162,10 +162,10 @@ function Receipt() {
                         <h2>subTotal : <strong>₹{total}</strong></h2>
                         <div>
                             <div className='gst-list'>
-                                <div>cgst @2.5%</div> <div>₹{(gst - total) / 2}</div>
+                                <div>cgst @2.5%</div> <div>₹{((gst - total) / 2).toFixed(2)}</div>
                             </div>
                             <div className='gst-list'>
-                                <div>sgst @2.5%</div> <div> ₹{(gst - total) / 2}</div>
+                                <div>sgst @2.5%</div> <div> ₹{((gst - total) / 2).toFixed(2)}</div>
                             </div>
                         </div>
                         <hr />
