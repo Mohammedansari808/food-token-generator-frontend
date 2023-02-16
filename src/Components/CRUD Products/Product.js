@@ -162,7 +162,6 @@ function Product() {
                     {
                         showBill ? (<div>
                             <Receipt />
-                            <button onClick={() => { window.print() }}>clidnflsjf</button>
                         </div>
                         ) : null
                     }
