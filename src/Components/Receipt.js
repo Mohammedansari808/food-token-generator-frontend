@@ -149,7 +149,7 @@ function Receipt() {
                                     </div>
 
                                     <div id="in-de-button" style={{ display: "flex" }}>
-                                        <button className='inde-button' onClick={() => { dispatch(decrement(res.name)) }}>-</button>
+                                        <button disabled={res.quantity <= 1 ? true : false} id="incre-button" className='inde-button' onClick={() => { dispatch(decrement(res.name)) }}>-</button>
                                         <div style={{ margin: "10px" }}>{res.quantity}</div>
                                         <button className='inde-button' onClick={() => { dispatch(increment(res.name)) }}>+</button>
                                     </div>

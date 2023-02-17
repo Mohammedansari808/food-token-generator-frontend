@@ -91,6 +91,13 @@
     border-radius: 5px;
 }
 
+
+#incre-button[disabled] {
+    cursor: not-allowed;
+    background-color: rgb(219, 219, 219);
+
+}
+
 .conf-button {
     margin: 50px
 }
